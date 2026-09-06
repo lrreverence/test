@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import { hasNutritionAccess } from "../src/domain/user.js";
 
 describe("nutrition access policy", () => {
@@ -18,4 +18,3 @@ describe("nutrition access policy", () => {
     expect(hasNutritionAccess({ subscriptionStatus: "active", currentPeriodEnd: past }, now)).toBe(false);
   });
 });
-

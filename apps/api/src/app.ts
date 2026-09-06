@@ -97,6 +97,7 @@ export function createApp(overrides: Partial<Dependencies> = {}) {
   app.use((_request, response) => response.status(404).json({ error: "Not found" }));
 
   const errorHandler: ErrorRequestHandler = (error, _request, response, _next) => {
+    void _next;
     if (error instanceof z.ZodError) {
       response.status(400).json({ error: "Invalid request", details: error.issues });
       return;
@@ -110,4 +111,3 @@ export function createApp(overrides: Partial<Dependencies> = {}) {
 
   return app;
 }
-
