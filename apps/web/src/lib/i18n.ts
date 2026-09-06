@@ -20,6 +20,7 @@ export const copy = {
     free: "Free plan",
     active: "Nutrition unlocked",
     results: "Search results",
+    products: "products",
     emptyTitle: "Your food shelf is ready",
     emptyBody: "Enter a product or brand to start exploring.",
     noResults: "No matching products found. Try a broader search.",
@@ -44,7 +45,7 @@ export const copy = {
     eyebrow: "Voedingsfeiten, helder uitgelegd", headlineA: "Weet wat erin", headlineB: "zit.",
     intro: "Doorzoek duizenden verpakte producten. Bekijk gratis de basis en ontgrendel alle voedingswaarden.",
     placeholder: "Probeer ‘havermelk’ of ‘pure chocolade’", search: "Zoeken", recent: "Recente zoekopdrachten",
-    member: "Demo-gebruiker", free: "Gratis abonnement", active: "Voedingswaarden ontgrendeld", results: "Zoekresultaten",
+    member: "Demo-gebruiker", free: "Gratis abonnement", active: "Voedingswaarden ontgrendeld", results: "Zoekresultaten", products: "producten",
     emptyTitle: "Je voedingsplank staat klaar", emptyBody: "Voer een product of merk in om te beginnen.",
     noResults: "Geen producten gevonden. Probeer een bredere zoekopdracht.", nutrition: "Voedingswaarde per 100 g",
     subscribe: "Ontgrendel voeding", subscribeNote: "Alle waarden met een maandelijks testabonnement.", manage: "Abonnement beheren",
@@ -56,7 +57,7 @@ export const copy = {
     eyebrow: "Lebensmitteldaten, klar erklärt", headlineA: "Wissen, was", headlineB: "drin ist.",
     intro: "Durchsuche tausende verpackte Lebensmittel. Basisinfos sind kostenlos, alle Nährwerte für Mitglieder.",
     placeholder: "Zum Beispiel „Hafermilch“", search: "Suchen", recent: "Letzte Suchen", member: "Demo-Nutzer",
-    free: "Kostenlos", active: "Nährwerte freigeschaltet", results: "Suchergebnisse", emptyTitle: "Dein Lebensmittelregal ist bereit",
+    free: "Kostenlos", active: "Nährwerte freigeschaltet", results: "Suchergebnisse", products: "Produkte", emptyTitle: "Dein Lebensmittelregal ist bereit",
     emptyBody: "Gib ein Produkt oder eine Marke ein.", noResults: "Keine passenden Produkte. Versuche einen allgemeineren Begriff.",
     nutrition: "Nährwerte pro 100 g", subscribe: "Nährwerte freischalten", subscribeNote: "Alle Werte mit einem monatlichen Test-Abo.",
     manage: "Abo verwalten", locked: "Mitglieder sehen alle Nährwerte", unknown: "Nicht verfügbar", energy: "Energie", fat: "Fett",
@@ -67,7 +68,7 @@ export const copy = {
     eyebrow: "Les données alimentaires, en clair", headlineA: "Sachez ce qu’il y a", headlineB: "dedans.",
     intro: "Recherchez parmi des milliers de produits. Consultez l’essentiel gratuitement et débloquez toutes les valeurs nutritionnelles.",
     placeholder: "Essayez « lait d’avoine »", search: "Rechercher", recent: "Recherches récentes", member: "Compte démo",
-    free: "Formule gratuite", active: "Nutrition débloquée", results: "Résultats", emptyTitle: "Votre rayon est prêt",
+    free: "Formule gratuite", active: "Nutrition débloquée", results: "Résultats", products: "produits", emptyTitle: "Votre rayon est prêt",
     emptyBody: "Saisissez un produit ou une marque pour commencer.", noResults: "Aucun produit trouvé. Essayez une recherche plus large.",
     nutrition: "Valeurs pour 100 g", subscribe: "Débloquer la nutrition", subscribeNote: "Toutes les valeurs avec un abonnement test mensuel.",
     manage: "Gérer l’abonnement", locked: "Les membres voient le tableau nutritionnel complet", unknown: "Indisponible",
@@ -76,4 +77,3 @@ export const copy = {
     error: "Une erreur est survenue. Veuillez réessayer."
   }
 } as const;
-

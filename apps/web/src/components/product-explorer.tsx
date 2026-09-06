@@ -100,19 +100,19 @@ export function ProductExplorer() {
     }).catch(() => setError(copy.en.error));
   }, []);
 
-  async function runSearch(term: string) {
+  async function runSearch(term: string, searchLocale: Locale = locale) {
     const clean = term.trim();
     if (clean.length < 2) return;
     setLoading(true);
     setError(null);
     setSearched(true);
     try {
-      const result = await api<{ products: Product[] }>(`/api/products/search?query=${encodeURIComponent(clean)}&locale=${locale}`);
+      const result = await api<{ products: Product[] }>(`/api/products/search?query=${encodeURIComponent(clean)}&locale=${searchLocale}`);
       setProducts(result.products);
-      setRecent((current) => [{ id: `${Date.now()}`, term: clean, locale }, ...current.filter((item) => item.term.toLowerCase() !== clean.toLowerCase())].slice(0, 6));
+      setRecent((current) => [{ id: `${Date.now()}`, term: clean, locale: searchLocale }, ...current.filter((item) => item.term.toLowerCase() !== clean.toLowerCase())].slice(0, 6));
     } catch {
       setProducts([]);
-      setError(t.error);
+      setError(copy[searchLocale].error);
     } finally {
       setLoading(false);
     }
@@ -133,13 +133,18 @@ export function ProductExplorer() {
     void runSearch(query);
   }
 
+  function changeLocale(nextLocale: Locale) {
+    setLocale(nextLocale);
+    if (searched && query.trim().length >= 2) void runSearch(query, nextLocale);
+  }
+
   return (
     <main className="min-h-screen overflow-hidden">
       <header className="relative z-10 mx-auto flex max-w-7xl items-center justify-between px-5 py-6 sm:px-8 lg:px-10">
         <a href="#top" className="flex items-center gap-3" aria-label="Labelwise home"><LeafMark/><span className="text-xl font-black tracking-[-0.04em]">labelwise</span></a>
         <div className="flex items-center gap-2 sm:gap-3">
           <label className="sr-only" htmlFor="language">Language</label>
-          <select id="language" value={locale} onChange={(event) => setLocale(event.target.value as Locale)} className="rounded-full border border-ink/15 bg-white/70 px-3 py-2.5 text-xs font-black uppercase tracking-wider outline-none backdrop-blur focus:ring-4 focus:ring-citrus/20 sm:px-4">
+          <select id="language" value={locale} onChange={(event) => changeLocale(event.target.value as Locale)} className="rounded-full border border-ink/15 bg-white/70 px-3 py-2.5 text-xs font-black uppercase tracking-wider outline-none backdrop-blur focus:ring-4 focus:ring-citrus/20 sm:px-4">
             {localeOptions.map((option) => <option key={option.code} value={option.code}>{option.short} · {option.label}</option>)}
           </select>
           {user?.canManageBilling ? (
@@ -181,7 +186,7 @@ export function ProductExplorer() {
         {loading ? (
           <div className="grid min-h-64 place-items-center"><div className="text-center"><div className="mx-auto size-10 animate-spin rounded-full border-4 border-ink/10 border-t-citrus"/><p className="mt-4 text-sm font-bold text-ink/50">{t.loading}</p></div></div>
         ) : products.length > 0 ? (
-          <><div className="mb-7 flex items-end justify-between"><div><p className="text-xs font-black uppercase tracking-[0.18em] text-citrus-dark">{products.length} products</p><h2 className="mt-1 text-3xl font-black tracking-tight">{t.results}</h2></div><p className="hidden rounded-full bg-white px-4 py-2 text-xs font-bold text-ink/55 sm:block">{user?.email ?? t.member} · {user?.hasNutritionAccess ? t.active : t.free}</p></div>
+          <><div className="mb-7 flex items-end justify-between"><div><p className="text-xs font-black uppercase tracking-[0.18em] text-citrus-dark">{products.length} {t.products}</p><h2 className="mt-1 text-3xl font-black tracking-tight">{t.results}</h2></div><p className="hidden rounded-full bg-white px-4 py-2 text-xs font-bold text-ink/55 sm:block">{user?.email ?? t.member} · {user?.hasNutritionAccess ? t.active : t.free}</p></div>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">{products.map((product) => <ProductCard key={product.code} product={product} locale={locale} onSubscribe={() => void startBilling("checkout")}/>)}</div></>
         ) : (
           <div className="grid min-h-64 place-items-center rounded-[32px] border border-dashed border-ink/15 bg-white/35 px-6 text-center">
