@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #17332d;
+  --color-cream: #f8f5ed;
+  --color-citrus: #ff7a3d;
+  --color-citrus-dark: #df5720;
+  --color-mint: #dff3de;
+  --color-lime: #cfe66b;
+  --font-sans: "Avenir Next", "Segoe UI", Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+button, input, select { font: inherit; }
+button { cursor: pointer; }
+::selection { background: var(--color-lime); color: var(--color-ink); }
+
+@keyframes lift-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.result-card { animation: lift-in 420ms both; }
+.result-card:nth-child(2) { animation-delay: 50ms; }
+.result-card:nth-child(3) { animation-delay: 100ms; }
+.result-card:nth-child(4) { animation-delay: 150ms; }
+.result-card:nth-child(5) { animation-delay: 200ms; }
+.result-card:nth-child(6) { animation-delay: 250ms; }
+
