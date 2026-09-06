@@ -1,0 +1,22 @@
+services:
+  mysql:
+    image: mysql:8.4
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: labelwise
+      MYSQL_USER: labelwise
+      MYSQL_PASSWORD: labelwise
+      MYSQL_ROOT_PASSWORD: local-root-password
+    ports:
+      - "3306:3306"
+    volumes:
+      - labelwise_mysql:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-plocal-root-password"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  labelwise_mysql:
+

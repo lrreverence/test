@@ -1,0 +1,17 @@
+{
+  "name": "labelwise",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "pnpm@10.30.3",
+  "scripts": {
+    "dev": "pnpm --parallel --filter @labelwise/api --filter @labelwise/web dev",
+    "build": "pnpm -r build",
+    "test": "pnpm -r test",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "db:generate": "pnpm --filter @labelwise/api prisma:generate",
+    "db:migrate": "pnpm --filter @labelwise/api prisma:migrate",
+    "db:seed": "pnpm --filter @labelwise/api prisma:seed"
+  }
+}
+
