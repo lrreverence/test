@@ -1,0 +1,45 @@
+{
+  "name": "@labelwise/api",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/server.js",
+    "test": "vitest run --coverage",
+    "lint": "eslint src tests prisma --max-warnings=0",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:seed": "tsx prisma/seed.ts"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "6.19.3",
+    "cors": "2.8.5",
+    "dotenv": "17.2.2",
+    "express": "5.2.1",
+    "helmet": "8.1.0",
+    "stripe": "22.6.1",
+    "zod": "4.1.5"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.35.0",
+    "@types/cors": "2.8.19",
+    "@types/express": "5.0.3",
+    "@types/node": "24.3.1",
+    "@vitest/coverage-v8": "4.0.0",
+    "eslint": "9.35.0",
+    "globals": "16.3.0",
+    "prisma": "6.19.3",
+    "supertest": "7.1.4",
+    "tsx": "4.20.5",
+    "typescript": "5.9.2",
+    "typescript-eslint": "8.42.0",
+    "vitest": "4.0.0"
+  }
+}
+
