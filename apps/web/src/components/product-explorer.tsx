@@ -31,6 +31,7 @@ function LeafMark() {
 
 function ProductCard({ product, locale, onSubscribe }: { product: Product; locale: Locale; onSubscribe: () => void }) {
   const t = copy[locale];
+  const nutrition = product.nutrition;
   const nutritionRows: Array<[keyof Nutrition, string, string]> = [
     ["energyKcal", t.energy, "kcal"], ["fat", t.fat, "g"], ["saturatedFat", t.saturatedFat, "g"],
     ["carbohydrates", t.carbohydrates, "g"], ["sugars", t.sugars, "g"], ["protein", t.protein, "g"], ["salt", t.salt, "g"]
@@ -54,12 +55,12 @@ function ProductCard({ product, locale, onSubscribe }: { product: Product; local
 
         <div className="mt-6 border-t border-ink/10 pt-5">
           <p className="mb-3 text-xs font-black uppercase tracking-[0.16em] text-ink/55">{t.nutrition}</p>
-          {product.nutrition ? (
+          {nutrition ? (
             <dl className="grid grid-cols-2 gap-x-5 gap-y-3">
               {nutritionRows.map(([key, label, unit]) => (
                 <div key={key} className="flex items-baseline justify-between gap-2 border-b border-ink/7 pb-2 text-sm">
                   <dt className="truncate text-ink/60">{label}</dt>
-                  <dd className="font-bold text-ink">{product.nutrition?.[key] === null ? "—" : `${formatter.format(product.nutrition[key] as number)} ${unit}`}</dd>
+                  <dd className="font-bold text-ink">{nutrition[key] === null ? "—" : `${formatter.format(nutrition[key])} ${unit}`}</dd>
                 </div>
               ))}
             </dl>
@@ -193,4 +194,3 @@ export function ProductExplorer() {
     </main>
   );
 }
-
