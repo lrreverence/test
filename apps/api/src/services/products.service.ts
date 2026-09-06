@@ -33,6 +33,20 @@ export type Product = {
   nutrition: Nutrition | null;
 };
 
+const RETRYABLE_STATUS = new Set([429, 500, 502, 503, 504]);
+
+async function fetchProvider(url: URL): Promise<Response> {
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    const response = await fetch(url, {
+      headers: { "User-Agent": env.OPEN_FOOD_FACTS_USER_AGENT, Accept: "application/json" },
+      signal: AbortSignal.timeout(10_000)
+    });
+    if (response.ok || !RETRYABLE_STATUS.has(response.status) || attempt === 1) return response;
+    await new Promise((resolve) => setTimeout(resolve, 250));
+  }
+  throw new Error("Open Food Facts request failed");
+}
+
 const firstText = (...values: unknown[]): string | null => {
   for (const value of values) {
     if (typeof value === "string" && value.trim()) return value.trim();
@@ -85,13 +99,9 @@ export async function searchOpenFoodFacts(query: string, locale: Locale, include
     ].join(",")
   }).toString();
 
-  const response = await fetch(url, {
-    headers: { "User-Agent": env.OPEN_FOOD_FACTS_USER_AGENT, Accept: "application/json" },
-    signal: AbortSignal.timeout(10_000)
-  });
+  const response = await fetchProvider(url);
 
   if (!response.ok) throw new Error(`Open Food Facts returned ${response.status}`);
   const data = (await response.json()) as { products?: RawProduct[] };
   return (data.products ?? []).map((product) => mapProduct(product, locale, includeNutrition));
 }
-

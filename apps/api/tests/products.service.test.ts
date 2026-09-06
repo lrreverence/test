@@ -1,5 +1,7 @@
-import { describe, expect, it } from "vitest";
-import { mapProduct } from "../src/services/products.service.js";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { mapProduct, searchOpenFoodFacts } from "../src/services/products.service.js";
+
+afterEach(() => vi.unstubAllGlobals());
 
 describe("mapProduct", () => {
   const raw = {
@@ -29,5 +31,15 @@ describe("mapProduct", () => {
   it("does not serialize nutrition for a free user", () => {
     expect(mapProduct(raw, "en", false).nutrition).toBeNull();
   });
-});
 
+  it("retries a transient provider failure once", async () => {
+    const fetchMock = vi.fn()
+      .mockResolvedValueOnce(new Response(null, { status: 503 }))
+      .mockResolvedValueOnce(Response.json({ products: [raw] }));
+    vi.stubGlobal("fetch", fetchMock);
+
+    const products = await searchOpenFoodFacts("oats", "en", false);
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+    expect(products[0]?.name).toBe("Fallback name");
+  });
+});
