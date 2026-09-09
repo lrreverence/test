@@ -25,6 +25,12 @@ pnpm dev
 
 Open `http://localhost:3000`; the API runs at `http://localhost:4000`.
 
+## Vercel deployment
+
+The repository includes a root `vercel.json` using Vercel Services. In the Vercel project's **Settings → Build and Deployment**, set **Framework Preset** to **Services**, then redeploy from `main`. The Next.js service handles `/`, while the Express service handles `/api/*` and `/health` on the same domain. Production browser requests therefore use relative API URLs and do not need `NEXT_PUBLIC_API_URL`.
+
+Configure `DATABASE_URL`, `WEB_URL`, `OPEN_FOOD_FACTS_USER_AGENT`, and the Stripe variables from `.env.example` in the Vercel project. `DATABASE_URL` must point to a network-accessible MySQL database; the Docker hostname is only for local development.
+
 For Stripe, create a recurring monthly test Price and add its `price_...` ID plus your test secret key to `.env`. Forward test webhooks while developing:
 
 ```bash
@@ -80,4 +86,3 @@ All secrets stay server-side. Only `NEXT_PUBLIC_API_URL` is exposed to the brows
 | `POST` | `/api/billing/checkout` | Create monthly Stripe Checkout session |
 | `POST` | `/api/billing/portal` | Open Stripe customer portal |
 | `POST` | `/api/webhooks/stripe` | Verify and process Stripe webhooks |
-
