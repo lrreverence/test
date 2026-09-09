@@ -7,8 +7,9 @@
     },
     "api": {
       "root": "apps/api",
-      "entrypoint": "src/app.ts",
-      "framework": "express"
+      "entrypoint": "dist-vercel/index.js",
+      "framework": "express",
+      "buildCommand": "pnpm run build:vercel"
     }
   },
   "rewrites": [
