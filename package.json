@@ -4,6 +4,7 @@
   "private": true,
   "packageManager": "pnpm@10.30.3",
   "scripts": {
+    "postinstall": "pnpm --filter @labelwise/api prisma:generate",
     "dev": "pnpm --parallel --filter @labelwise/api --filter @labelwise/web dev",
     "build": "pnpm -r build",
     "test": "pnpm -r test",
@@ -14,4 +15,3 @@
     "db:seed": "pnpm --filter @labelwise/api prisma:seed"
   }
 }
-
