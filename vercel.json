@@ -7,7 +7,7 @@
     },
     "api": {
       "root": "apps/api",
-      "entrypoint": "dist-vercel/index.js",
+      "entrypoint": "src/vercel-entry.js",
       "framework": "express",
       "buildCommand": "pnpm run build:vercel"
     }
