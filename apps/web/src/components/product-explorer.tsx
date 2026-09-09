@@ -4,7 +4,7 @@ import Image from "next/image";
 import { FormEvent, useEffect, useState } from "react";
 import { copy, localeOptions, type Locale } from "@/lib/i18n";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? (process.env.NODE_ENV === "production" ? "" : "http://localhost:4000");
 
 type Nutrition = Record<"energyKcal" | "fat" | "saturatedFat" | "carbohydrates" | "sugars" | "protein" | "salt", number | null>;
 type Product = {
