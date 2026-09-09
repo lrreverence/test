@@ -117,9 +117,3 @@ export function createApp(overrides: Partial<Dependencies> = {}) {
 
   return app;
 }
-
-// Vercel detects `src/app` before `src/server` in Node backend projects. Keep
-// the factory export for tests/local composition and expose a default app for
-// Vercel's serverless runtime.
-const vercelApp = createApp();
-export default vercelApp;
