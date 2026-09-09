@@ -1,12 +1,19 @@
 import { prisma } from "../src/db/prisma.js";
 import { DEMO_USER } from "../src/domain/user.js";
 
-await prisma.user.upsert({
-  where: { id: DEMO_USER.id },
-  update: {},
-  create: DEMO_USER
-});
+async function main() {
+  await prisma.user.upsert({
+    where: { id: DEMO_USER.id },
+    update: {},
+    create: DEMO_USER
+  });
 
-console.log(`Seeded ${DEMO_USER.email}`);
-await prisma.$disconnect();
+  console.log(`Seeded ${DEMO_USER.email}`);
+}
 
+void main()
+  .catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+  })
+  .finally(() => prisma.$disconnect());
