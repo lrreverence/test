@@ -9,3 +9,6 @@ coverage/
 *.tsbuildinfo
 .DS_Store
 tmp/
+.vercel/
+.env*.local
+query-engine.node

@@ -7,7 +7,7 @@
     "postinstall": "prisma generate",
     "dev": "tsx watch src/server.ts",
     "build": "prisma generate && tsc -p tsconfig.build.json",
-    "build:vercel": "prisma generate && ncc build src/vercel.ts -o dist-vercel --no-cache && cp dist-vercel/client/libquery_engine* dist-vercel/",
+    "build:vercel": "node scripts/clean-vercel-build.cjs && prisma generate && ncc build src/vercel.ts -o dist-vercel --no-cache && cp dist-vercel/client/libquery_engine* dist-vercel/ && cp dist-vercel/client/libquery_engine* src/query-engine.node",
     "start": "node dist/server.js",
     "test": "vitest run",
     "lint": "eslint src tests prisma --max-warnings=0",
