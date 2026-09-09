@@ -2,7 +2,7 @@
   "name": "@labelwise/api",
   "version": "1.0.0",
   "private": true,
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "postinstall": "prisma generate",
     "dev": "tsx watch src/server.ts",
