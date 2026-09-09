@@ -1,12 +1,18 @@
 import cors from "cors";
-import express, { type ErrorRequestHandler } from "express";
-import helmet from "helmet";
+import express, { type ErrorRequestHandler, type RequestHandler } from "express";
+import helmetImport from "helmet";
+import type { HelmetOptions } from "helmet";
 import { z } from "zod";
 import { env } from "./config/env.js";
 import { hasNutritionAccess } from "./domain/user.js";
 import { prismaUserRepository, type UserRepository } from "./repositories/user.repository.js";
 import { createStripeBillingService, type BillingService } from "./services/billing.service.js";
 import { locales, searchOpenFoodFacts, type Locale, type Product } from "./services/products.service.js";
+
+// Helmet publishes both ESM and CommonJS entrypoints. Some Vercel TypeScript
+// passes resolve the default import as a namespace, so normalize the callable
+// middleware once at the boundary instead of relying on compiler interop flags.
+const helmet = helmetImport as unknown as (options?: HelmetOptions) => RequestHandler;
 
 type Dependencies = {
   repository: UserRepository;
